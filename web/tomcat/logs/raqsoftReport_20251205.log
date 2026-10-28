@@ -1,0 +1,906 @@
+
+[2025-12-05 20:54:45] 
+INFO: 现在计算报表/pkBoxInvHisReport.rpx
+
+[2025-12-05 20:54:45] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 20:54:45] 
+DEBUG: Start reading report entry, Report entry ID: /pkBoxInvHisReport.rpx
+
+[2025-12-05 20:54:45] 
+DEBUG: End reading report entry, Report entry ID: /pkBoxInvHisReport.rpx
+
+[2025-12-05 20:54:45] 
+DEBUG: Start reading report entry, Report entry ID: /pkBoxInvHisReport.rpx
+
+[2025-12-05 20:54:45] 
+DEBUG: End reading report entry, Report entry ID: /pkBoxInvHisReport.rpx
+
+[2025-12-05 20:54:45] 
+INFO: Calculation start,first get data from source......
+
+[2025-12-05 20:54:46] 
+INFO: print sql:
+
+[2025-12-05 20:54:46] 
+INFO: ds1=SELECT c.office_name,
+a.position_name,
+a.position_type,
+a.goods_type,
+a.goods_code,
+a.goods_name,
+a.goods_model,
+a.goods_ver_num,
+a.batch_no,
+a.sp_id,
+b.event_type,
+b.event_code,
+b.event_date,
+b.event_user_name,
+b.hold_reason_name,
+b.hold_reason_code,
+b.RELEASE_USER_NAME from
+wms_inventory a
+left join
+wms_inventory_his b
+on a.row_id = b.inv_id
+and b.del_flag = '0',
+sm_office c
+WHERE a.del_flag = '0'
+and a.position_type = 'Middle'
+and a.position_code = 'PK_BOX'
+and a.org_id = c.row_id 
+and (a.batch_no like '%'||?||'%' or ? is null)
+and (a.goods_code like '%'||?||'%' or ? is null)
+and b.event_date > to_date(?,'yyyy-mm-dd hh24:mi:ss')
+and b.event_date <  to_date(?,'yyyy-mm-dd hh24:mi:ss')
+ORDER BY event_date desc
+
+[2025-12-05 20:54:46] 
+INFO: arg0: null
+
+[2025-12-05 20:54:46] 
+INFO: arg1: null
+
+[2025-12-05 20:54:46] 
+INFO: arg2: null
+
+[2025-12-05 20:54:46] 
+INFO: arg3: null
+
+[2025-12-05 20:54:46] 
+INFO: arg4: null
+
+[2025-12-05 20:54:46] 
+INFO: arg5: null
+
+[2025-12-05 20:54:46] 
+INFO: Calculating report...
+
+[2025-12-05 20:54:46] 
+INFO: Report Pictures Processing......
+
+[2025-12-05 20:54:46] 
+INFO: Calculation complete!
+
+[2025-12-05 20:54:46] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FpkBoxInvHisReport.rpx&columns=0&srcType=file&cachedId=A_10746931&reportParamsId=100006&t_i_m_e=1764939286017
+
+[2025-12-05 20:54:46] 
+INFO: 开始生成HTML......
+
+[2025-12-05 20:54:46] 
+DEBUG: Start writing report cache, Report entry ID: /pkBoxInvHisReport.rpx Report cache ID: A_10746931
+
+[2025-12-05 20:54:46] 
+INFO: 生成HTML结束......
+
+[2025-12-05 20:54:46] 
+DEBUG: End writing report cache, Report entry ID: /pkBoxInvHisReport.rpx Report cache ID: A_10746931.    time：7ms
+
+[2025-12-05 21:17:49] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2025-12-05 21:17:49] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:17:49] 
+DEBUG: Start reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:17:49] 
+DEBUG: End reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:17:49] 
+DEBUG: Start reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:17:49] 
+DEBUG: End reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:17:49] 
+INFO: Calculation start,first get data from source......
+
+[2025-12-05 21:17:49] 
+INFO: print sql:
+
+[2025-12-05 21:17:49] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2025-12-05 21:17:51] 
+INFO: Calculating report...
+
+[2025-12-05 21:17:51] 
+INFO: Report Pictures Processing......
+
+[2025-12-05 21:17:51] 
+INFO: Calculation complete!
+
+[2025-12-05 21:17:51] 
+DEBUG: Start writing report cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746950
+
+[2025-12-05 21:17:51] 
+DEBUG: Start writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746950 Pager cache ID: A_10746964
+
+[2025-12-05 21:17:51] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10746950&reportParamsId=100007&saveAsName=WIP&t_i_m_e=1764940671909
+
+[2025-12-05 21:17:51] 
+INFO: 开始生成HTML......
+
+[2025-12-05 21:17:51] 
+INFO: 生成HTML结束......
+
+[2025-12-05 21:17:52] 
+DEBUG: End writing report cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746950.    time：1051ms
+
+[2025-12-05 21:17:52] 
+DEBUG: End writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746950 Pager cache ID: A_10746964.    time：1053ms
+
+[2025-12-05 21:43:57] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2025-12-05 21:43:57] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:43:57] 
+DEBUG: Start reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:43:57] 
+DEBUG: End reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:43:57] 
+DEBUG: Start reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:43:57] 
+DEBUG: End reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:43:57] 
+INFO: Calculation start,first get data from source......
+
+[2025-12-05 21:43:57] 
+INFO: print sql:
+
+[2025-12-05 21:43:57] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2025-12-05 21:43:59] 
+INFO: Calculating report...
+
+[2025-12-05 21:43:59] 
+INFO: Report Pictures Processing......
+
+[2025-12-05 21:43:59] 
+INFO: Calculation complete!
+
+[2025-12-05 21:43:59] 
+DEBUG: Start writing report cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746990
+
+[2025-12-05 21:43:59] 
+DEBUG: Start writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746990 Pager cache ID: A_10747001
+
+[2025-12-05 21:43:59] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10746990&reportParamsId=100008&saveAsName=WIP&t_i_m_e=1764942239389
+
+[2025-12-05 21:43:59] 
+INFO: 开始生成HTML......
+
+[2025-12-05 21:43:59] 
+INFO: 生成HTML结束......
+
+[2025-12-05 21:44:00] 
+DEBUG: End writing report cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746990.    time：1042ms
+
+[2025-12-05 21:44:00] 
+DEBUG: End writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10746990 Pager cache ID: A_10747001.    time：1137ms
+
+[2025-12-05 21:44:12] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:44:12] 
+DEBUG: The report page has been built, its identity is:A_10747001
+
+[2025-12-05 21:44:15] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:44:15] 
+DEBUG: The report page has been built, its identity is:A_10747001
+
+[2025-12-05 21:44:17] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:44:17] 
+DEBUG: The report page has been built, its identity is:A_10747001
+
+[2025-12-05 21:44:17] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:44:17] 
+DEBUG: The report page has been built, its identity is:A_10747001
+
+[2025-12-05 21:56:02] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2025-12-05 21:56:02] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:56:02] 
+DEBUG: Start reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:56:02] 
+DEBUG: End reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:56:02] 
+DEBUG: Start reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:56:02] 
+DEBUG: End reading report entry, Report entry ID: /shippinglist.rpx
+
+[2025-12-05 21:56:02] 
+INFO: Calculation start,first get data from source......
+
+[2025-12-05 21:56:02] 
+INFO: print sql:
+
+[2025-12-05 21:56:02] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2025-12-05 21:56:04] 
+INFO: Calculating report...
+
+[2025-12-05 21:56:05] 
+INFO: Report Pictures Processing......
+
+[2025-12-05 21:56:05] 
+INFO: Calculation complete!
+
+[2025-12-05 21:56:05] 
+DEBUG: Start writing report cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10747269
+
+[2025-12-05 21:56:05] 
+DEBUG: Start writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10747269 Pager cache ID: A_10747292
+
+[2025-12-05 21:56:05] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10747269&reportParamsId=100009&saveAsName=WIP&t_i_m_e=1764942965788
+
+[2025-12-05 21:56:05] 
+INFO: 开始生成HTML......
+
+[2025-12-05 21:56:05] 
+INFO: 生成HTML结束......
+
+[2025-12-05 21:56:06] 
+DEBUG: End writing report cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10747269.    time：1002ms
+
+[2025-12-05 21:56:06] 
+DEBUG: End writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10747269 Pager cache ID: A_10747292.    time：1077ms
+
+[2025-12-05 21:56:10] 
+INFO: Exporting report: WIP
+
+[2025-12-05 21:56:10] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:56:11] 
+DEBUG: Start writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10747269 Pager cache ID: A_10747310
+
+[2025-12-05 21:56:11] 
+DEBUG: Export report begin, total pages :1
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:6.72%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:13.45%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:20.17%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:26.89%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:33.62%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:40.34%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:47.07%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:53.79%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:60.51%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:67.24%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:73.96%
+
+[2025-12-05 21:56:11] 
+DEBUG: End writing pager cache, Report entry ID: /shippinglist.rpx Report cache ID: A_10747269 Pager cache ID: A_10747310.    time：613ms
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:80.68%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:87.41%
+
+[2025-12-05 21:56:11] 
+DEBUG: Export status:94.13%
+
+[2025-12-05 21:56:11] 
+DEBUG: Page :1 OK.
+
+[2025-12-05 21:59:13] 
+INFO: 现在计算报表/allshippinglist.rpx
+
+[2025-12-05 21:59:13] 
+DEBUG: CacheManager get report entry
+
+[2025-12-05 21:59:13] 
+DEBUG: Start reading report entry, Report entry ID: /allshippinglist.rpx
+
+[2025-12-05 21:59:13] 
+SEVERE: error：
+: Can't read the report file!/allshippinglist.rpx
+Caused:report file /reportFiles/allshippinglist.rpx does not exist
+	at com.raqsoft.report.cache.ReportEntry.getReportDefine(ReportEntry.java:152)
+	at com.raqsoft.report.tag.HtmlTag.generateHtmlString(HtmlTag.java:1470)
+	at com.raqsoft.report.tag.HtmlTag.doStartTag(HtmlTag.java:257)
+	at org.apache.jsp.WEB_002dINF.views.mes.report.wip.allShippingList_jsp._jspx_meth_report_005fhtml_005f0(allShippingList_jsp.java:455)
+	at org.apache.jsp.WEB_002dINF.views.mes.report.wip.allShippingList_jsp._jspService(allShippingList_jsp.java:260)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:457)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:386)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:330)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:728)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:470)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:395)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:316)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:168)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:303)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1286)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1041)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:984)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.opensymphony.sitemesh.webapp.SiteMeshFilter.obtainContent(SiteMeshFilter.java:129)
+	at com.opensymphony.sitemesh.webapp.SiteMeshFilter.doFilter(SiteMeshFilter.java:77)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:347)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:263)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:650)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:800)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:806)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.Exception: report file /reportFiles/allshippinglist.rpx does not exist
+	at com.raqsoft.report.cache.DefaultReportDefineLoader.load(DefaultReportDefineLoader.java:74)
+	at com.raqsoft.report.cache.ReportEntry.getReportDefine(ReportEntry.java:147)
+	... 76 more

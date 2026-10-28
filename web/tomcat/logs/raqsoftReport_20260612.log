@@ -1,0 +1,33 @@
+
+[2026-06-12 15:23:07] 
+DEBUG: Dfx path: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-06-12 15:23:07] 
+DEBUG: Esproc main path: null
+
+[2026-06-12 15:23:07] 
+INFO: The block size is empty.
+
+[2026-06-12 15:23:07] 
+DEBUG: Report home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-06-12 15:23:07] 
+DEBUG: Display of Double.NaN: NaN
+
+[2026-06-12 15:23:07] 
+DEBUG: Use old rule: false
+
+[2026-06-12 15:23:07] 
+DEBUG: Default palette name: null
+
+[2026-06-12 15:23:07] 
+DEBUG: Default palette scope: 0
+
+[2026-06-12 15:23:07] 
+DEBUG: Input home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-06-12 15:23:07] 
+INFO: Set The Max DataSet Rows Num to -1 , old value is -1
+
+[2026-06-12 15:23:07] 
+DEBUG: setCachePath :¡¡cache/input

@@ -1,0 +1,194 @@
+
+[2025-01-25 00:54:54] 
+INFO: 现在计算报表/SMT.rpx
+
+[2025-01-25 00:54:54] 
+DEBUG: CacheManager get report entry
+
+[2025-01-25 00:54:54] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:54:54] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:54:54] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:54:54] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:54:54] 
+INFO: 开始运算报表，首先取数......
+
+[2025-01-25 00:54:54] 
+INFO: 下面开始打出sql
+
+[2025-01-25 00:54:54] 
+INFO: ds1=SELECT t.eqp_code,
+       g.eqp_slot,
+       g.goods_code,
+       g.goods_name,
+       g.barcode_val,
+       g.goods_qty,
+       g.setup_date
+  FROM md_equipment t, lot_eqp_goods g
+ where t.row_id = g.eqp_id
+   and t.del_flag = '0'
+   and g.del_flag = '0'
+   and g.active_flag = 'Y'
+   and g.down_date is null
+   and (g.eqp_slot like ? or ? is null)
+   and (g.goods_code like ? or ? is null)
+   and (g.barcode_val like ? or ? is null)
+   and (t.eqp_code like ? or ? is null)
+
+[2025-01-25 00:54:54] 
+INFO: arg0: %%
+
+[2025-01-25 00:54:54] 
+INFO: arg1: null
+
+[2025-01-25 00:54:54] 
+INFO: arg2: %%
+
+[2025-01-25 00:54:54] 
+INFO: arg3: null
+
+[2025-01-25 00:54:54] 
+INFO: arg4: %%
+
+[2025-01-25 00:54:54] 
+INFO: arg5: null
+
+[2025-01-25 00:54:54] 
+INFO: arg6: %%
+
+[2025-01-25 00:54:54] 
+INFO: arg7: null
+
+[2025-01-25 00:54:55] 
+INFO: 取数结束,开始运算
+
+[2025-01-25 00:54:55] 
+INFO: 报表图片处理......
+
+[2025-01-25 00:54:55] 
+INFO: 计算结束！
+
+[2025-01-25 00:54:55] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10742744
+
+[2025-01-25 00:54:55] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10742744 分页缓存id是：A_10742755
+
+[2025-01-25 00:54:55] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FSMT.rpx&columns=0&srcType=file&cachedId=A_10742744&reportParamsId=100168&saveAsName=WIP&t_i_m_e=1737737695036
+
+[2025-01-25 00:54:55] 
+INFO: 开始生成HTML......
+
+[2025-01-25 00:54:55] 
+INFO: 生成HTML结束......
+
+[2025-01-25 00:54:55] 
+DEBUG: 写分页缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10742744 分页缓存id是：A_10742755.    time：20ms
+
+[2025-01-25 00:54:55] 
+DEBUG: 写报表缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10742744.    time：47ms
+
+[2025-01-25 00:55:11] 
+INFO: 现在计算报表/SMT.rpx
+
+[2025-01-25 00:55:11] 
+DEBUG: CacheManager get report entry
+
+[2025-01-25 00:55:11] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:55:11] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:55:11] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:55:11] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2025-01-25 00:55:11] 
+INFO: 开始运算报表，首先取数......
+
+[2025-01-25 00:55:11] 
+INFO: 下面开始打出sql
+
+[2025-01-25 00:55:11] 
+INFO: ds1=SELECT t.eqp_code,
+       g.eqp_slot,
+       g.goods_code,
+       g.goods_name,
+       g.barcode_val,
+       g.goods_qty,
+       g.setup_date
+  FROM md_equipment t, lot_eqp_goods g
+ where t.row_id = g.eqp_id
+   and t.del_flag = '0'
+   and g.del_flag = '0'
+   and g.active_flag = 'Y'
+   and g.down_date is null
+   and (g.eqp_slot like ? or ? is null)
+   and (g.goods_code like ? or ? is null)
+   and (g.barcode_val like ? or ? is null)
+   and (t.eqp_code like ? or ? is null)
+
+[2025-01-25 00:55:11] 
+INFO: arg0: %T027%
+
+[2025-01-25 00:55:11] 
+INFO: arg1: T027
+
+[2025-01-25 00:55:11] 
+INFO: arg2: %%
+
+[2025-01-25 00:55:11] 
+INFO: arg3: null
+
+[2025-01-25 00:55:11] 
+INFO: arg4: %%
+
+[2025-01-25 00:55:11] 
+INFO: arg5: null
+
+[2025-01-25 00:55:11] 
+INFO: arg6: %%
+
+[2025-01-25 00:55:11] 
+INFO: arg7: null
+
+[2025-01-25 00:55:11] 
+INFO: 取数结束,开始运算
+
+[2025-01-25 00:55:11] 
+INFO: 报表图片处理......
+
+[2025-01-25 00:55:11] 
+INFO: 计算结束！
+
+[2025-01-25 00:55:11] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10742781 分页缓存id是：A_10742529
+
+[2025-01-25 00:55:11] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10742781
+
+[2025-01-25 00:55:11] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FSMT.rpx&columns=0&srcType=file&cachedId=A_10742781&reportParamsId=100169&saveAsName=WIP&t_i_m_e=1737737711906
+
+[2025-01-25 00:55:11] 
+INFO: 开始生成HTML......
+
+[2025-01-25 00:55:11] 
+INFO: 生成HTML结束......
+
+[2025-01-25 00:55:11] 
+DEBUG: 写报表缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10742781.    time：0ms
+
+[2025-01-25 00:55:11] 
+DEBUG: 写分页缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10742781 分页缓存id是：A_10742529.    time：1ms

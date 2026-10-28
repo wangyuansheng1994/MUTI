@@ -1,0 +1,57 @@
+﻿[
+
+    { "id": "a", iconCls: "fa fa-desktop", text: "我的面板", children: [
+        { "id": "excel", iconCls: "fa fa-file-excel-o", text: "个人信息", children: [
+                  { "id": "b", iconCls: "fa fa-sign-out", text: "我的桌面", url: "a/act/task/todo" },
+                  { "id": "c", iconCls: "fa fa-sign-out", text: "个人信息", url: "a/sys/user/info" }
+            ]
+        },
+        { "id": "d", iconCls: "fa fa-file-excel-o", text: "代码生成", children: [
+                          { "id": "e", iconCls: "fa fa-sign-out", text: "代码生成", url: "a/404" },
+                    ]
+                },
+
+    ]
+    },
+ { "id": "f", iconCls: "fa fa-desktop", text: "BKM", children: [
+        { "id": "g", iconCls: "fa fa-file-excel-o", text: "Fanout", children: [
+                  { "id": "h", iconCls: "fa fa-sign-out", text: "Fanout登记", url: "a/bkm/bkmCase" },
+            ]
+        },
+        { "id": "i", iconCls: "fa fa-file-excel-o", text: "Fanln", children: [
+                          { "id": "j", iconCls: "fa fa-sign-out", text: "Fanln评估", url: "a/404" },
+                    ]
+                },
+
+    ]
+    },
+{ "id": "k", iconCls: "fa fa-desktop", text: "CAR", children: [
+        { "id": "l", iconCls: "fa fa-file-excel-o", text: "CAR", children: [
+                  { "id": "m", iconCls: "fa fa-sign-out", text: "CAR作证", url: "a/404" },
+                   { "id": "n", iconCls: "fa fa-sign-out", text: "CAR验证", url: "a/404" },
+                    { "id": "o", iconCls: "fa fa-sign-out", text: "CAR查询", url: "a/404" },
+            ]
+        },
+    ]
+    },
+
+     { "id": "p", iconCls: "fa fa-desktop", text: "系统设置", children: [
+            { "id": "q", iconCls: "fa fa-file-excel-o", text: "机构用户", children: [
+                      { "id": "r", iconCls: "fa fa-sign-out", text: "用户管理", url: "a/sys/user/index" },
+                      { "id": "s", iconCls: "fa fa-sign-out", text: "机构管理", url: "a/sys/office" }
+                ]
+            },
+            { "id": "t", iconCls: "fa fa-file-excel-o", text: "系统设置", children: [
+                              { "id": "u", iconCls: "fa fa-sign-out", text: "菜单管理", url: "a/sys/menu" },
+                              { "id": "v", iconCls: "fa fa-sign-out", text: "角色管理", url: "a/sys/role" },
+                              { "id": "w", iconCls: "fa fa-sign-out", text: "字典管理", url: "a/sys/dict" },
+                        ]
+                    },
+    { "id": "x", iconCls: "fa fa-file-excel-o", text: "附件管理", children: [
+                          { "id": "y", iconCls: "fa fa-sign-out", text: "附件分类管理", url: "a/affix/adaffixcategory/adAffixCategory" },
+                          { "id": "z", iconCls: "fa fa-sign-out", text: "机构管理", url: "a/affix/adaffix/adAffixPerson" }
+                    ]
+                },
+        ]
+        }
+]

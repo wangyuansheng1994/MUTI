@@ -1,0 +1,455 @@
+
+[2024-12-03 09:54:41] 
+DEBUG: Dfx path: D:/PW/JC2/code/AspanseMESService/console/target/console/reportFiles
+
+[2024-12-03 09:54:41] 
+DEBUG: Esproc main path: null
+
+[2024-12-03 09:54:41] 
+INFO: The block size is empty.
+
+[2024-12-03 09:54:41] 
+DEBUG: Report home: D:/PW/JC2/code/AspanseMESService/console/target/console/reportFiles
+
+[2024-12-03 09:54:41] 
+DEBUG: Display of Double.NaN: NaN
+
+[2024-12-03 09:54:41] 
+DEBUG: Use old rule: false
+
+[2024-12-03 09:54:41] 
+DEBUG: Default palette name: null
+
+[2024-12-03 09:54:41] 
+DEBUG: Default palette scope: 0
+
+[2024-12-03 09:54:41] 
+DEBUG: Input home: D:/PW/JC2/code/AspanseMESService/console/target/console/reportFiles
+
+[2024-12-03 09:54:41] 
+INFO: Set The Max DataSet Rows Num to -1 , old value is -1
+
+[2024-12-03 09:54:41] 
+DEBUG: setCachePath :　cache/input
+
+[2024-12-03 09:59:49] 
+INFO: 现在计算报表/ceshi.rpx
+
+[2024-12-03 09:59:49] 
+DEBUG: CacheManager get report entry
+
+[2024-12-03 09:59:49] 
+DEBUG: 开始读取模板缓存，模板缓存id：/ceshi.rpx
+
+[2024-12-03 09:59:49] 
+SEVERE: error：
+: 读报表文件失败：/ceshi.rpx
+错误来源：报表文件/reportFiles/ceshi.rpx不存在
+	at com.raqsoft.report.cache.ReportEntry.getReportDefine(ReportEntry.java:152)
+	at com.raqsoft.report.tag.HtmlTag.generateHtmlString(HtmlTag.java:1470)
+	at com.raqsoft.report.tag.HtmlTag.doStartTag(HtmlTag.java:257)
+	at org.apache.jsp.WEB_002dINF.views.mes.mo.order.runCardTest_jsp._jspx_meth_report_005fhtml_005f0(runCardTest_jsp.java:404)
+	at org.apache.jsp.WEB_002dINF.views.mes.mo.order.runCardTest_jsp._jspService(runCardTest_jsp.java:220)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:71)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:467)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:378)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:326)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:710)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:457)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:168)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:303)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1286)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1041)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:984)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at com.opensymphony.sitemesh.webapp.SiteMeshFilter.obtainContent(SiteMeshFilter.java:129)
+	at com.opensymphony.sitemesh.webapp.SiteMeshFilter.doFilter(SiteMeshFilter.java:77)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:347)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:263)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.Exception: 报表文件/reportFiles/ceshi.rpx不存在
+	at com.raqsoft.report.cache.DefaultReportDefineLoader.load(DefaultReportDefineLoader.java:74)
+	at com.raqsoft.report.cache.ReportEntry.getReportDefine(ReportEntry.java:147)
+	... 76 more
+
+[2024-12-03 10:01:26] 
+DEBUG: Dfx path: D:/PW/JC2/code/AspanseMESService/console/target/console/reportFiles
+
+[2024-12-03 10:01:26] 
+DEBUG: Esproc main path: null
+
+[2024-12-03 10:01:26] 
+INFO: The block size is empty.
+
+[2024-12-03 10:01:26] 
+DEBUG: Report home: D:/PW/JC2/code/AspanseMESService/console/target/console/reportFiles
+
+[2024-12-03 10:01:26] 
+DEBUG: Display of Double.NaN: NaN
+
+[2024-12-03 10:01:26] 
+DEBUG: Use old rule: false
+
+[2024-12-03 10:01:26] 
+DEBUG: Default palette name: null
+
+[2024-12-03 10:01:26] 
+DEBUG: Default palette scope: 0
+
+[2024-12-03 10:01:26] 
+DEBUG: Input home: D:/PW/JC2/code/AspanseMESService/console/target/console/reportFiles
+
+[2024-12-03 10:01:26] 
+INFO: Set The Max DataSet Rows Num to -1 , old value is -1
+
+[2024-12-03 10:01:26] 
+DEBUG: setCachePath :　cache/input
+
+[2024-12-03 10:02:29] 
+INFO: 现在计算报表/ceshi.rpx
+
+[2024-12-03 10:02:29] 
+DEBUG: CacheManager get report entry
+
+[2024-12-03 10:02:29] 
+DEBUG: 开始读取模板缓存，模板缓存id：/ceshi.rpx
+
+[2024-12-03 10:02:29] 
+DEBUG: 读取模板缓存结束，模板缓存id：/ceshi.rpx
+
+[2024-12-03 10:02:29] 
+DEBUG: 开始读取模板缓存，模板缓存id：/ceshi.rpx
+
+[2024-12-03 10:02:29] 
+DEBUG: 读取模板缓存结束，模板缓存id：/ceshi.rpx
+
+[2024-12-03 10:02:29] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-03 10:02:29] 
+INFO: 下面开始打出sql
+
+[2024-12-03 10:02:29] 
+INFO: ds1=SELECT m.cust_code,
+       t.cust_lot,
+       p.cust_prod_code,
+       s.cust_lot,
+       t.lot_qty,
+       t.lot_code,
+       s.sap_so_code,
+			 COUNT(l.wafer_id) AS wafer,
+			 listagg(to_char(l.wafer_id),';') within group (order by l.wafer_id)  as wafer_id
+
+  FROM lot_info      t,
+       mo_order      m,
+       pd_design     p,
+       so_sale_order s,
+       wo_work_order w,
+			 (select t.lot_code,substr (l.wafer_id,instr(l.wafer_id,'-')+1) as wafer_id,l.row_id from lot_info      t,
+       mo_order      m,wo_work_order w left join  WO_WORK_ORDER_MTL l on w.row_id = l.wo_id where  t.mo_id = m.row_id
+   and m.wo_id = w.row_id) l 
+ where t.mo_id = m.row_id
+   and m.wo_id = w.row_id
+   and w.so_id = s.row_id
+	 and  t.lot_code = l.lot_code
+   and t.pd_design_id = p.row_id
+   and t.del_flag = '0'
+   and m.del_flag = '0'
+   and p.del_flag = '0'
+   and s.del_flag = '0'
+   and t.lot_code = ?
+	 group by m.cust_code,
+       t.cust_lot,
+       p.cust_prod_code,
+       s.cust_lot,
+       t.lot_qty,
+       t.lot_code,
+       s.sap_so_code
+
+[2024-12-03 10:02:29] 
+INFO: arg0: J05449N007.001
+
+[2024-12-03 10:02:30] 
+INFO: 下面开始打出sql
+
+[2024-12-03 10:02:30] 
+INFO: ds2=select sysdate from dual
+
+[2024-12-03 10:02:30] 
+INFO: 下面开始打出sql
+
+[2024-12-03 10:02:30] 
+INFO: ds3=SELECT row_number()over(partition by t.lot_code order by f.flow_code),
+       t.lot_code,
+       f.step_name,
+       sb.attr_code,
+       sb.attr_name||':'||b.attr_val  as attr_val
+       
+  FROM lot_info            t,
+       mo_order            m,
+       pd_design           p,
+       so_sale_order       s,
+       wo_work_order       w,
+       md_process_version  mp,
+       md_process_ver_flow f
+  left join md_process_ver_flow_biz_attr b
+    on f.row_id = b.process_ver_flow_id
+  left join MD_STEP_BIZ_ATTRIBUTE sb
+    on b.attr_id = sb.row_id
+ where t.mo_id = m.row_id
+   and m.wo_id = w.row_id
+   and w.so_id = s.row_id
+   and p.row_id = mp.pdd_id
+   and p.row_id = t.pd_design_id
+   and mp.row_id = f.process_ver_id
+   and t.del_flag = '0'
+   and m.del_flag = '0'
+   and p.del_flag = '0'
+   and s.del_flag = '0'
+   and mp.del_flag = '0'
+   and b.del_flag = '0'
+   and f.del_flag = '0'
+   and t.lot_code = ?
+
+[2024-12-03 10:02:30] 
+INFO: arg0: J05449N007.001
+
+[2024-12-03 10:02:30] 
+INFO: 取数结束,开始运算
+
+[2024-12-03 10:02:31] 
+WARNING: Get image file: D:\PW\JC2\code\AspanseMESService\console\target\console\raqsoft\images\outsize.gif failure!
+
+[2024-12-03 10:02:31] 
+SEVERE: Can't find outsize Image: outsize.gif
+
+[2024-12-03 10:02:31] 
+WARNING: Get image file: D:\PW\JC2\code\AspanseMESService\console\target\console\raqsoft\images\outsize.gif failure!
+
+[2024-12-03 10:02:31] 
+SEVERE: Can't find outsize Image: outsize.gif
+
+[2024-12-03 10:02:31] 
+WARNING: Get image file: D:\PW\JC2\code\AspanseMESService\console\target\console\raqsoft\images\outsize.gif failure!
+
+[2024-12-03 10:02:31] 
+SEVERE: Can't find outsize Image: outsize.gif
+
+[2024-12-03 10:02:31] 
+INFO: 报表图片处理......
+
+[2024-12-03 10:02:31] 
+INFO: 计算结束！
+
+[2024-12-03 10:02:31] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/ceshi.rpx 报表缓存id是：A_10747025
+
+[2024-12-03 10:02:31] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/ceshi.rpx 报表缓存id是：A_10747025 分页缓存id是：A_10747040
+
+[2024-12-03 10:02:31] 
+DEBUG: pdfUrl http://localhost:8080/reportServlet?action=6&file=%2Fceshi.rpx&columns=0&srcType=file&cachedId=A_10747025&reportParamsId=100001&saveAsName=ceshi&t_i_m_e=1733191351100
+
+[2024-12-03 10:02:31] 
+INFO: 开始生成HTML......
+
+[2024-12-03 10:02:31] 
+DEBUG: 写报表缓存完毕，模板缓存id：/ceshi.rpx 报表缓存id是：A_10747025.    time：15ms
+
+[2024-12-03 10:02:31] 
+DEBUG: 写分页缓存完毕，模板缓存id：/ceshi.rpx 报表缓存id是：A_10747025 分页缓存id是：A_10747040.    time：7ms
+
+[2024-12-03 10:02:31] 
+INFO: 生成HTML结束......
+
+[2024-12-03 10:02:36] 
+DEBUG: 开始导出PDF......
+
+[2024-12-03 10:02:36] 
+DEBUG: CacheManager get report entry
+
+[2024-12-03 10:02:36] 
+DEBUG: Loading fonts from directory:c:/windows/fonts
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading font:c:\windows\fonts\mstmc.ttf failure for c:\windows\fonts\mstmc.ttf is not a valid TTF or OTF file.
+ExceptionConverter: com.lowagie2.text.DocumentException: c:\windows\fonts\mstmc.ttf is not a valid TTF or OTF file.
+	at com.lowagie2.text.pdf.TrueTypeFont.process(TrueTypeFont.java:600)
+	at com.lowagie2.text.pdf.TrueTypeFont.<init>(TrueTypeFont.java:364)
+	at com.lowagie2.text.pdf.BaseFont.getAllFontNames(BaseFont.java:991)
+	at com.lowagie2.text.FontFactoryImp.register(FontFactoryImp.java:548)
+	at com.lowagie2.text.FontFactoryImp.registerDirectory(FontFactoryImp.java:801)
+	at com.lowagie2.text.FontFactoryImp.registerDirectories(FontFactoryImp.java:823)
+	at com.lowagie2.text.FontFactory.registerDirectories(FontFactory.java:370)
+	at com.view.pdf.PdfReport.<clinit>(PdfReport.java:65)
+	at com.raqsoft.report.view.pdf.PdfReport.<init>(PdfReport.java:29)
+	at com.raqsoft.report.view.pdf.PdfReportServlet.service(PdfReportServlet.java:199)
+	at com.raqsoft.report.view.ReportServlet.service(ReportServlet.java:1552)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:347)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:263)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:c:/winnt/fonts
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:d:/windows/fonts
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:d:/winnt/fonts
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:/usr/X/lib/X11/fonts/TrueType
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:/usr/openwin/lib/X11/fonts/TrueType
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:/usr/share/fonts/default/TrueType
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:/usr/X11R6/lib/X11/fonts/ttf
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:/Library/Fonts
+
+[2024-12-03 10:02:37] 
+DEBUG: Loading fonts from directory:/System/Library/Fonts
+
+[2024-12-03 10:02:37] 
+DEBUG: Total 406 fonts registered.
+
+[2024-12-03 10:02:37] 
+SEVERE: Error：
+java.lang.NoSuchMethodError: com.view.pdf.PdfReport.setScale(FLjava/awt/print/PageFormat;)V
+	at com.raqsoft.report.view.pdf.PdfReport.setScale(PdfReport.java:13)
+	at com.raqsoft.report.view.pdf.PdfReportServlet.service(PdfReportServlet.java:255)
+	at com.raqsoft.report.view.ReportServlet.service(ReportServlet.java:1552)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:347)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:263)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)

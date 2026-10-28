@@ -1,0 +1,1668 @@
+
+[2026-07-27 08:08:07] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2026-07-27 08:08:07] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 08:08:07] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 08:08:07] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 08:08:07] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 08:08:07] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 08:08:07] 
+INFO: 开始运算报表，首先取数......
+
+[2026-07-27 08:08:08] 
+INFO: 下面开始打出sql
+
+[2026-07-27 08:08:08] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2026-07-27 08:08:11] 
+INFO: 取数结束,开始运算
+
+[2026-07-27 08:08:12] 
+INFO: 报表图片处理......
+
+[2026-07-27 08:08:12] 
+INFO: 计算结束！
+
+[2026-07-27 08:08:12] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747818
+
+[2026-07-27 08:08:12] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747818 分页缓存id是：A_10747838
+
+[2026-07-27 08:08:12] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10747818&reportParamsId=100024&saveAsName=WIP&t_i_m_e=1785110892219
+
+[2026-07-27 08:08:12] 
+INFO: 开始生成HTML......
+
+[2026-07-27 08:08:12] 
+INFO: 生成HTML结束......
+
+[2026-07-27 08:08:13] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747818.    time：1646ms
+
+[2026-07-27 08:08:14] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747818 分页缓存id是：A_10747838.    time：1826ms
+
+[2026-07-27 08:08:14] 
+INFO: Exporting report: WIP
+
+[2026-07-27 08:08:14] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 08:08:14] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747818 分页缓存id是：A_10747854
+
+[2026-07-27 08:08:14] 
+DEBUG: Export report begin, total pages :1
+
+[2026-07-27 08:08:14] 
+DEBUG: Export status:4.32%
+
+[2026-07-27 08:08:14] 
+DEBUG: Export status:8.64%
+
+[2026-07-27 08:08:14] 
+DEBUG: Export status:12.96%
+
+[2026-07-27 08:08:14] 
+DEBUG: Export status:17.29%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:21.61%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:25.93%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:30.25%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:34.57%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:38.89%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:43.21%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:47.53%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:51.86%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:56.18%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:60.50%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:64.82%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:69.14%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:73.46%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:77.78%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:82.11%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:86.43%
+
+[2026-07-27 08:08:15] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747818 分页缓存id是：A_10747854.    time：1100ms
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:90.75%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:95.07%
+
+[2026-07-27 08:08:15] 
+DEBUG: Export status:99.39%
+
+[2026-07-27 08:08:15] 
+DEBUG: Page :1 OK.
+
+[2026-07-27 09:29:32] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2026-07-27 09:29:32] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 09:29:32] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 09:29:32] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 09:29:32] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 09:29:32] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 09:29:32] 
+INFO: 开始运算报表，首先取数......
+
+[2026-07-27 09:29:32] 
+INFO: 下面开始打出sql
+
+[2026-07-27 09:29:32] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2026-07-27 09:29:36] 
+INFO: 取数结束,开始运算
+
+[2026-07-27 09:29:37] 
+INFO: 报表图片处理......
+
+[2026-07-27 09:29:37] 
+INFO: 计算结束！
+
+[2026-07-27 09:29:37] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747862
+
+[2026-07-27 09:29:37] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747862 分页缓存id是：A_10747877
+
+[2026-07-27 09:29:37] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10747862&reportParamsId=100025&saveAsName=WIP&t_i_m_e=1785115777410
+
+[2026-07-27 09:29:37] 
+INFO: 开始生成HTML......
+
+[2026-07-27 09:29:37] 
+INFO: 生成HTML结束......
+
+[2026-07-27 09:29:38] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747862.    time：1516ms
+
+[2026-07-27 09:29:39] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747862 分页缓存id是：A_10747877.    time：1671ms
+
+[2026-07-27 11:44:04] 
+DEBUG: Dfx path: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-07-27 11:44:04] 
+DEBUG: Esproc main path: null
+
+[2026-07-27 11:44:04] 
+INFO: The block size is empty.
+
+[2026-07-27 11:44:04] 
+DEBUG: Report home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-07-27 11:44:04] 
+DEBUG: Display of Double.NaN: NaN
+
+[2026-07-27 11:44:04] 
+DEBUG: Use old rule: false
+
+[2026-07-27 11:44:04] 
+DEBUG: Default palette name: null
+
+[2026-07-27 11:44:04] 
+DEBUG: Default palette scope: 0
+
+[2026-07-27 11:44:04] 
+DEBUG: Input home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-07-27 11:44:04] 
+INFO: Set The Max DataSet Rows Num to -1 , old value is -1
+
+[2026-07-27 11:44:04] 
+DEBUG: setCachePath :　cache/input
+
+[2026-07-27 11:46:42] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2026-07-27 11:46:42] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 11:46:42] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:46:42] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:46:42] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:46:42] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:46:42] 
+INFO: 开始运算报表，首先取数......
+
+[2026-07-27 11:46:42] 
+INFO: 下面开始打出sql
+
+[2026-07-27 11:46:42] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2026-07-27 11:46:46] 
+INFO: 取数结束,开始运算
+
+[2026-07-27 11:46:47] 
+INFO: 报表图片处理......
+
+[2026-07-27 11:46:47] 
+INFO: 计算结束！
+
+[2026-07-27 11:46:47] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747039
+
+[2026-07-27 11:46:47] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747039 分页缓存id是：A_10747042
+
+[2026-07-27 11:46:47] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10747039&reportParamsId=100001&saveAsName=WIP&t_i_m_e=1785124007695
+
+[2026-07-27 11:46:47] 
+INFO: 开始生成HTML......
+
+[2026-07-27 11:46:47] 
+INFO: 生成HTML结束......
+
+[2026-07-27 11:46:49] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747039.    time：1538ms
+
+[2026-07-27 11:46:49] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747039 分页缓存id是：A_10747042.    time：1824ms
+
+[2026-07-27 11:47:27] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2026-07-27 11:47:27] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 11:47:27] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:47:27] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:47:27] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:47:27] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 11:47:27] 
+INFO: 开始运算报表，首先取数......
+
+[2026-07-27 11:47:27] 
+INFO: 下面开始打出sql
+
+[2026-07-27 11:47:27] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2026-07-27 11:47:31] 
+INFO: 取数结束,开始运算
+
+[2026-07-27 11:47:32] 
+INFO: 报表图片处理......
+
+[2026-07-27 11:47:32] 
+INFO: 计算结束！
+
+[2026-07-27 11:47:32] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747070
+
+[2026-07-27 11:47:32] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747070 分页缓存id是：A_10747078
+
+[2026-07-27 11:47:32] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10747070&reportParamsId=100002&saveAsName=WIP&t_i_m_e=1785124052166
+
+[2026-07-27 11:47:32] 
+INFO: 开始生成HTML......
+
+[2026-07-27 11:47:32] 
+INFO: 生成HTML结束......
+
+[2026-07-27 11:47:33] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747070.    time：1397ms
+
+[2026-07-27 11:47:33] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747070 分页缓存id是：A_10747078.    time：1759ms
+
+[2026-07-27 11:47:40] 
+INFO: Exporting report: WIP
+
+[2026-07-27 11:47:40] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 11:47:40] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747070 分页缓存id是：A_10747099
+
+[2026-07-27 11:47:40] 
+DEBUG: Export report begin, total pages :1
+
+[2026-07-27 11:47:40] 
+DEBUG: Export status:4.32%
+
+[2026-07-27 11:47:40] 
+DEBUG: Export status:8.64%
+
+[2026-07-27 11:47:40] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747070 分页缓存id是：A_10747099.    time：854ms
+
+[2026-07-27 11:47:40] 
+DEBUG: Export status:12.96%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:17.28%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:21.61%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:25.93%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:30.25%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:34.57%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:38.89%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:43.21%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:47.53%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:51.85%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:56.17%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:60.50%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:64.82%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:69.14%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:73.46%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:77.78%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:82.10%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:86.42%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:90.74%
+
+[2026-07-27 11:47:41] 
+DEBUG: Export status:95.07%
+
+[2026-07-27 11:47:42] 
+DEBUG: Export status:99.39%
+
+[2026-07-27 11:47:42] 
+DEBUG: Page :1 OK.
+
+[2026-07-27 11:59:31] 
+DEBUG: Dfx path: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-07-27 11:59:31] 
+DEBUG: Esproc main path: null
+
+[2026-07-27 11:59:31] 
+INFO: The block size is empty.
+
+[2026-07-27 11:59:31] 
+DEBUG: Report home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-07-27 11:59:31] 
+DEBUG: Display of Double.NaN: NaN
+
+[2026-07-27 11:59:31] 
+DEBUG: Use old rule: false
+
+[2026-07-27 11:59:31] 
+DEBUG: Default palette name: null
+
+[2026-07-27 11:59:31] 
+DEBUG: Default palette scope: 0
+
+[2026-07-27 11:59:31] 
+DEBUG: Input home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2026-07-27 11:59:31] 
+INFO: Set The Max DataSet Rows Num to -1 , old value is -1
+
+[2026-07-27 11:59:31] 
+DEBUG: setCachePath :　cache/input
+
+[2026-07-27 13:43:25] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2026-07-27 13:43:25] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 13:43:25] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 13:43:25] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 13:43:25] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 13:43:25] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 13:43:25] 
+INFO: 开始运算报表，首先取数......
+
+[2026-07-27 13:43:26] 
+INFO: 下面开始打出sql
+
+[2026-07-27 13:43:26] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2026-07-27 13:43:30] 
+INFO: 取数结束,开始运算
+
+[2026-07-27 13:43:31] 
+INFO: 报表图片处理......
+
+[2026-07-27 13:43:31] 
+INFO: 计算结束！
+
+[2026-07-27 13:43:31] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747025
+
+[2026-07-27 13:43:32] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747025 分页缓存id是：A_10747047
+
+[2026-07-27 13:43:32] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10747025&reportParamsId=100001&saveAsName=WIP&t_i_m_e=1785131012024
+
+[2026-07-27 13:43:32] 
+INFO: 开始生成HTML......
+
+[2026-07-27 13:43:32] 
+INFO: 生成HTML结束......
+
+[2026-07-27 13:43:33] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747025.    time：1977ms
+
+[2026-07-27 13:43:33] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747025 分页缓存id是：A_10747047.    time：1830ms
+
+[2026-07-27 13:43:34] 
+INFO: Exporting report: WIP
+
+[2026-07-27 13:43:34] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 13:43:34] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747025 分页缓存id是：A_10747058
+
+[2026-07-27 13:43:34] 
+DEBUG: Export report begin, total pages :1
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:4.32%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:8.64%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:12.96%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:17.28%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:21.61%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:25.93%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:30.25%
+
+[2026-07-27 13:43:35] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747025 分页缓存id是：A_10747058.    time：911ms
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:34.57%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:38.89%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:43.21%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:47.53%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:51.85%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:56.17%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:60.50%
+
+[2026-07-27 13:43:35] 
+DEBUG: Export status:64.82%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:69.14%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:73.46%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:77.78%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:82.10%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:86.42%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:90.74%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:95.07%
+
+[2026-07-27 13:43:36] 
+DEBUG: Export status:99.39%
+
+[2026-07-27 13:43:36] 
+DEBUG: Page :1 OK.
+
+[2026-07-27 21:02:52] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2026-07-27 21:02:52] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 21:02:52] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 21:02:52] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 21:02:52] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 21:02:52] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2026-07-27 21:02:52] 
+INFO: 开始运算报表，首先取数......
+
+[2026-07-27 21:02:52] 
+INFO: 下面开始打出sql
+
+[2026-07-27 21:02:52] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2026-07-27 21:02:55] 
+INFO: 取数结束,开始运算
+
+[2026-07-27 21:02:56] 
+INFO: 报表图片处理......
+
+[2026-07-27 21:02:56] 
+INFO: 计算结束！
+
+[2026-07-27 21:02:56] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747077
+
+[2026-07-27 21:02:56] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747077 分页缓存id是：A_10747093
+
+[2026-07-27 21:02:56] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10747077&reportParamsId=100002&saveAsName=WIP&t_i_m_e=1785157376249
+
+[2026-07-27 21:02:56] 
+INFO: 开始生成HTML......
+
+[2026-07-27 21:02:56] 
+INFO: 生成HTML结束......
+
+[2026-07-27 21:02:57] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747077.    time：1644ms
+
+[2026-07-27 21:02:58] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747077 分页缓存id是：A_10747093.    time：1850ms
+
+[2026-07-27 21:03:01] 
+INFO: Exporting report: WIP
+
+[2026-07-27 21:03:01] 
+DEBUG: CacheManager get report entry
+
+[2026-07-27 21:03:01] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747077 分页缓存id是：A_10747117
+
+[2026-07-27 21:03:01] 
+DEBUG: Export report begin, total pages :1
+
+[2026-07-27 21:03:02] 
+DEBUG: Export status:4.31%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:8.61%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:12.92%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:17.22%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:21.53%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:25.83%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:30.14%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:34.45%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:38.75%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:43.06%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:47.36%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:51.67%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:55.97%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:60.28%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:64.59%
+
+[2026-07-27 21:03:03] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10747077 分页缓存id是：A_10747117.    time：1891ms
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:68.89%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:73.20%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:77.50%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:81.81%
+
+[2026-07-27 21:03:03] 
+DEBUG: Export status:86.11%
+
+[2026-07-27 21:03:04] 
+DEBUG: Export status:90.42%
+
+[2026-07-27 21:03:04] 
+DEBUG: Export status:94.73%
+
+[2026-07-27 21:03:04] 
+DEBUG: Export status:99.03%
+
+[2026-07-27 21:03:04] 
+DEBUG: Page :1 OK.

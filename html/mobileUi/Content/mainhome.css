@@ -1,0 +1,44 @@
+﻿body {
+    /*background-image: url('../img/background.jpg');*/
+    background-attachment: fixed;
+}
+
+.icon {
+    /*background-color: #00B2EE;*/
+    background-color:#1890ff;
+    filter: alpha(opacity=80); /*支持 IE 浏览器*/
+    opacity: 0.8; /*支持 Chrome, Opera, Safari 等浏览器*/
+    display: table;
+    text-align: center;
+    vertical-align: middle;
+}
+
+    .icon:hover,
+    .icon:active {
+        background-color: #FF9800;
+        filter: alpha(opacity=90); /*支持 IE 浏览器*/
+        opacity: 0.9;
+    }
+
+    .icon a:hover, .icon a:active {
+        font-weight: bold;
+        font-family: "微软雅黑";
+        color: rgba(236, 240, 241, 1);
+        text-decoration: none;
+    }
+
+    .icon a {
+        font-weight: bold;
+        font-family: "微软雅黑";
+        color: rgba(236, 240, 241, 1);
+        text-decoration: none;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        .icon a section {
+            font-size: 0.9em;
+        }
+        .icon a img {
+            width: 50%;
+        }

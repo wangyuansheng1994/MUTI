@@ -1,0 +1,1008 @@
+
+[2024-12-19 16:00:07] 
+DEBUG: Dfx path: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2024-12-19 16:00:07] 
+DEBUG: Esproc main path: null
+
+[2024-12-19 16:00:07] 
+INFO: The block size is empty.
+
+[2024-12-19 16:00:07] 
+DEBUG: Report home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2024-12-19 16:00:07] 
+DEBUG: Display of Double.NaN: NaN
+
+[2024-12-19 16:00:07] 
+DEBUG: Use old rule: false
+
+[2024-12-19 16:00:07] 
+DEBUG: Default palette name: null
+
+[2024-12-19 16:00:07] 
+DEBUG: Default palette scope: 0
+
+[2024-12-19 16:00:07] 
+DEBUG: Input home: /home/apache-tomcat-8.5.34/webapps/MES/reportFiles
+
+[2024-12-19 16:00:07] 
+INFO: Set The Max DataSet Rows Num to -1 , old value is -1
+
+[2024-12-19 16:00:07] 
+DEBUG: setCachePath :　cache/input
+
+[2024-12-19 17:59:36] 
+INFO: 现在计算报表/SMT.rpx
+
+[2024-12-19 17:59:36] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 17:59:36] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 17:59:36] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 17:59:36] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 17:59:36] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 17:59:36] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-19 17:59:36] 
+INFO: 下面开始打出sql
+
+[2024-12-19 17:59:36] 
+INFO: ds1=SELECT t.eqp_code,
+       g.eqp_slot,
+       g.goods_code,
+       g.goods_name,
+       g.barcode_val,
+       g.goods_qty,
+       g.setup_date
+  FROM md_equipment t, lot_eqp_goods g
+ where t.row_id = g.eqp_id
+   and t.del_flag = '0'
+   and g.del_flag = '0'
+   and g.active_flag = 'Y'
+   and g.down_date is null
+   and (g.eqp_slot like ? or ? is null)
+   and (g.goods_code like ? or ? is null)
+   and (g.barcode_val like ? or ? is null)
+   and (t.eqp_code like ? or ? is null)
+
+[2024-12-19 17:59:36] 
+INFO: arg0: %%
+
+[2024-12-19 17:59:36] 
+INFO: arg1: null
+
+[2024-12-19 17:59:36] 
+INFO: arg2: %%
+
+[2024-12-19 17:59:36] 
+INFO: arg3: null
+
+[2024-12-19 17:59:36] 
+INFO: arg4: %%
+
+[2024-12-19 17:59:36] 
+INFO: arg5: null
+
+[2024-12-19 17:59:36] 
+INFO: arg6: %%
+
+[2024-12-19 17:59:36] 
+INFO: arg7: null
+
+[2024-12-19 17:59:37] 
+INFO: 取数结束,开始运算
+
+[2024-12-19 17:59:37] 
+INFO: 报表图片处理......
+
+[2024-12-19 17:59:37] 
+INFO: 计算结束！
+
+[2024-12-19 17:59:37] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747034
+
+[2024-12-19 17:59:37] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747034 分页缓存id是：A_10747041
+
+[2024-12-19 17:59:37] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FSMT.rpx&columns=0&srcType=file&cachedId=A_10747034&reportParamsId=100001&saveAsName=WIP&t_i_m_e=1734602377460
+
+[2024-12-19 17:59:37] 
+INFO: 开始生成HTML......
+
+[2024-12-19 17:59:37] 
+DEBUG: 写报表缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747034.    time：49ms
+
+[2024-12-19 17:59:37] 
+INFO: 生成HTML结束......
+
+[2024-12-19 17:59:37] 
+DEBUG: 写分页缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747034 分页缓存id是：A_10747041.    time：69ms
+
+[2024-12-19 18:00:08] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:00:08] 
+DEBUG: 报表已分页，标识为：A_10747041
+
+[2024-12-19 18:00:21] 
+INFO: 现在计算报表/SMT.rpx
+
+[2024-12-19 18:00:21] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:00:21] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:00:21] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:00:21] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:00:21] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:00:21] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-19 18:00:21] 
+INFO: 下面开始打出sql
+
+[2024-12-19 18:00:21] 
+INFO: ds1=SELECT t.eqp_code,
+       g.eqp_slot,
+       g.goods_code,
+       g.goods_name,
+       g.barcode_val,
+       g.goods_qty,
+       g.setup_date
+  FROM md_equipment t, lot_eqp_goods g
+ where t.row_id = g.eqp_id
+   and t.del_flag = '0'
+   and g.del_flag = '0'
+   and g.active_flag = 'Y'
+   and g.down_date is null
+   and (g.eqp_slot like ? or ? is null)
+   and (g.goods_code like ? or ? is null)
+   and (g.barcode_val like ? or ? is null)
+   and (t.eqp_code like ? or ? is null)
+
+[2024-12-19 18:00:21] 
+INFO: arg0: %%
+
+[2024-12-19 18:00:21] 
+INFO: arg1: null
+
+[2024-12-19 18:00:21] 
+INFO: arg2: %%
+
+[2024-12-19 18:00:21] 
+INFO: arg3: null
+
+[2024-12-19 18:00:21] 
+INFO: arg4: %%
+
+[2024-12-19 18:00:21] 
+INFO: arg5: null
+
+[2024-12-19 18:00:21] 
+INFO: arg6: %HSM002%
+
+[2024-12-19 18:00:21] 
+INFO: arg7: HSM002
+
+[2024-12-19 18:00:22] 
+INFO: 取数结束,开始运算
+
+[2024-12-19 18:00:22] 
+INFO: 报表图片处理......
+
+[2024-12-19 18:00:22] 
+INFO: 计算结束！
+
+[2024-12-19 18:00:22] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747065
+
+[2024-12-19 18:00:22] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747065 分页缓存id是：A_10747072
+
+[2024-12-19 18:00:22] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FSMT.rpx&columns=0&srcType=file&cachedId=A_10747065&reportParamsId=100002&saveAsName=WIP&t_i_m_e=1734602422017
+
+[2024-12-19 18:00:22] 
+INFO: 开始生成HTML......
+
+[2024-12-19 18:00:22] 
+DEBUG: 写报表缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747065.    time：4ms
+
+[2024-12-19 18:00:22] 
+DEBUG: 写分页缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747065 分页缓存id是：A_10747072.    time：3ms
+
+[2024-12-19 18:00:22] 
+INFO: 生成HTML结束......
+
+[2024-12-19 18:04:43] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:04:43] 
+DEBUG: 报表已分页，标识为：A_10747072
+
+[2024-12-19 18:05:44] 
+INFO: 现在计算报表/SMT.rpx
+
+[2024-12-19 18:05:44] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:05:44] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:05:44] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:05:44] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:05:44] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:05:44] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-19 18:05:44] 
+INFO: 下面开始打出sql
+
+[2024-12-19 18:05:44] 
+INFO: ds1=SELECT t.eqp_code,
+       g.eqp_slot,
+       g.goods_code,
+       g.goods_name,
+       g.barcode_val,
+       g.goods_qty,
+       g.setup_date
+  FROM md_equipment t, lot_eqp_goods g
+ where t.row_id = g.eqp_id
+   and t.del_flag = '0'
+   and g.del_flag = '0'
+   and g.active_flag = 'Y'
+   and g.down_date is null
+   and (g.eqp_slot like ? or ? is null)
+   and (g.goods_code like ? or ? is null)
+   and (g.barcode_val like ? or ? is null)
+   and (t.eqp_code like ? or ? is null)
+
+[2024-12-19 18:05:44] 
+INFO: arg0: %%
+
+[2024-12-19 18:05:44] 
+INFO: arg1: null
+
+[2024-12-19 18:05:44] 
+INFO: arg2: %%
+
+[2024-12-19 18:05:44] 
+INFO: arg3: null
+
+[2024-12-19 18:05:44] 
+INFO: arg4: %%
+
+[2024-12-19 18:05:44] 
+INFO: arg5: null
+
+[2024-12-19 18:05:44] 
+INFO: arg6: %%
+
+[2024-12-19 18:05:44] 
+INFO: arg7: null
+
+[2024-12-19 18:05:44] 
+INFO: 取数结束,开始运算
+
+[2024-12-19 18:05:44] 
+INFO: 报表图片处理......
+
+[2024-12-19 18:05:44] 
+INFO: 计算结束！
+
+[2024-12-19 18:05:44] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747089
+
+[2024-12-19 18:05:44] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747089 分页缓存id是：A_10747117
+
+[2024-12-19 18:05:44] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FSMT.rpx&columns=0&srcType=file&cachedId=A_10747089&reportParamsId=100003&saveAsName=WIP&t_i_m_e=1734602744868
+
+[2024-12-19 18:05:44] 
+INFO: 开始生成HTML......
+
+[2024-12-19 18:05:44] 
+INFO: 生成HTML结束......
+
+[2024-12-19 18:05:44] 
+DEBUG: 写报表缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747089.    time：16ms
+
+[2024-12-19 18:05:44] 
+DEBUG: 写分页缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747089 分页缓存id是：A_10747117.    time：39ms
+
+[2024-12-19 18:06:10] 
+INFO: 现在计算报表/SMT.rpx
+
+[2024-12-19 18:06:10] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:06:10] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:06:10] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:06:10] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:06:10] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:06:10] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-19 18:06:10] 
+INFO: 下面开始打出sql
+
+[2024-12-19 18:06:10] 
+INFO: ds1=SELECT t.eqp_code,
+       g.eqp_slot,
+       g.goods_code,
+       g.goods_name,
+       g.barcode_val,
+       g.goods_qty,
+       g.setup_date
+  FROM md_equipment t, lot_eqp_goods g
+ where t.row_id = g.eqp_id
+   and t.del_flag = '0'
+   and g.del_flag = '0'
+   and g.active_flag = 'Y'
+   and g.down_date is null
+   and (g.eqp_slot like ? or ? is null)
+   and (g.goods_code like ? or ? is null)
+   and (g.barcode_val like ? or ? is null)
+   and (t.eqp_code like ? or ? is null)
+
+[2024-12-19 18:06:10] 
+INFO: arg0: %%
+
+[2024-12-19 18:06:10] 
+INFO: arg1: null
+
+[2024-12-19 18:06:10] 
+INFO: arg2: %%
+
+[2024-12-19 18:06:10] 
+INFO: arg3: null
+
+[2024-12-19 18:06:10] 
+INFO: arg4: %%
+
+[2024-12-19 18:06:10] 
+INFO: arg5: null
+
+[2024-12-19 18:06:10] 
+INFO: arg6: %%
+
+[2024-12-19 18:06:10] 
+INFO: arg7: null
+
+[2024-12-19 18:06:11] 
+INFO: 取数结束,开始运算
+
+[2024-12-19 18:06:11] 
+INFO: 报表图片处理......
+
+[2024-12-19 18:06:11] 
+INFO: 计算结束！
+
+[2024-12-19 18:06:11] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747121
+
+[2024-12-19 18:06:11] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747121 分页缓存id是：A_10746889
+
+[2024-12-19 18:06:11] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FSMT.rpx&columns=0&srcType=file&cachedId=A_10747121&reportParamsId=100004&saveAsName=WIP&t_i_m_e=1734602771089
+
+[2024-12-19 18:06:11] 
+INFO: 开始生成HTML......
+
+[2024-12-19 18:06:11] 
+INFO: 生成HTML结束......
+
+[2024-12-19 18:06:11] 
+DEBUG: 写报表缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747121.    time：24ms
+
+[2024-12-19 18:06:11] 
+DEBUG: 写分页缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747121 分页缓存id是：A_10746889.    time：37ms
+
+[2024-12-19 18:09:42] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2024-12-19 18:09:42] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:09:42] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:09:42] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:09:42] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:09:42] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:09:42] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-19 18:09:42] 
+INFO: 下面开始打出sql
+
+[2024-12-19 18:09:42] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2024-12-19 18:09:44] 
+INFO: 取数结束,开始运算
+
+[2024-12-19 18:09:44] 
+INFO: 报表图片处理......
+
+[2024-12-19 18:09:44] 
+INFO: 计算结束！
+
+[2024-12-19 18:09:44] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746905
+
+[2024-12-19 18:09:44] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746905 分页缓存id是：A_10746912
+
+[2024-12-19 18:09:44] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10746905&reportParamsId=100005&saveAsName=WIP&t_i_m_e=1734602984464
+
+[2024-12-19 18:09:44] 
+INFO: 开始生成HTML......
+
+[2024-12-19 18:09:44] 
+INFO: 生成HTML结束......
+
+[2024-12-19 18:09:44] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746905.    time：325ms
+
+[2024-12-19 18:09:44] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746905 分页缓存id是：A_10746912.    time：401ms
+
+[2024-12-19 18:09:46] 
+INFO: Exporting report: WIP
+
+[2024-12-19 18:09:46] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:09:46] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746905 分页缓存id是：A_10746938
+
+[2024-12-19 18:09:46] 
+DEBUG: Export report begin, total pages :1
+
+[2024-12-19 18:09:46] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746905 分页缓存id是：A_10746938.    time：159ms
+
+[2024-12-19 18:09:46] 
+DEBUG: Export status:23.85%
+
+[2024-12-19 18:09:46] 
+DEBUG: Export status:47.70%
+
+[2024-12-19 18:09:46] 
+DEBUG: Export status:71.55%
+
+[2024-12-19 18:09:46] 
+DEBUG: Export status:95.40%
+
+[2024-12-19 18:09:46] 
+DEBUG: Page :1 OK.
+
+[2024-12-19 18:19:56] 
+INFO: 现在计算报表/shippinglist.rpx
+
+[2024-12-19 18:19:56] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:19:56] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:19:56] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:19:56] 
+DEBUG: 开始读取模板缓存，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:19:56] 
+DEBUG: 读取模板缓存结束，模板缓存id：/shippinglist.rpx
+
+[2024-12-19 18:19:56] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-19 18:19:56] 
+INFO: 下面开始打出sql
+
+[2024-12-19 18:19:56] 
+INFO: ds1=SELECT
+	* 
+FROM
+	(
+SELECT
+	to_char( b.packinglist_date, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,--出货日期
+	b.packinglist_code,--送货指令单据编号
+	s.cust_code,--Cust. Code
+	s.cust_code_s,--Lansus Code
+	s.WAFER_REMARK as deviceCode,
+	s.cust_order_code,--WO 上的PO No(D列）-- 	p.cust_prod_code,
+	REPLACE ( p.CUST_PROD_NAME, 'TR1', '' ) AS cust_prod_code,--Device Code
+	p.series_name,-- Device
+	p.pdd_tgt_name,--OSAT Device
+	s.sap_so_code,--OSAT.Lot no
+	s.cust_lot,--Lot No
+	p.produce_phase_type,--Lot Type
+		CASE 
+	WHEN p.process_segment_type ='ASSY' THEN
+		'A'
+	WHEN p.process_segment_type ='FT' THEN
+		'T'
+	WHEN p.process_segment_type ='ASSY_FT' THEN
+		'A+T'
+END AS process_segment_type,
+	b.TRACKING_CODE,
+	b.receive_address_desc,--Ship to Address
+	b.PROD_QTY,
+	b.RECEIVE_CORP_NAME,
+	b.RECEIVE_PSN_TEL,
+	b.RECEIVE_PSN_NAME,
+	b.TRACKING_DESC,
+	b.goodQty,
+	to_char(
+	to_char(
+	TO_CHAR( TRUNC( m.MO_DATE ), 'YY' )) || to_char(
+	TO_CHAR( m.MO_DATE, 'IW' ))) AS dc,
+	b.createDate,
+	'BIN1' as bin
+FROM
+	lot_info t
+	JOIN (
+SELECT DISTINCT
+	a.packinglist_code,
+	sum( t.PROD_QTY_ACTUAL ) AS goodQty,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code,
+	max(a.CREATE_DATE) as createDate
+FROM
+	LOT_PACK_PACKINGLIST a
+	JOIN lot_pack_packinglist_dtl d ON a.row_id = d.packinglist_id 
+	AND d.del_flag = '0'
+	LEFT JOIN LOT_PACK t ON d.lot_pack_id = t.row_id 
+	AND t.del_flag = '0' 
+	AND t.PACK_STATUS = 'Y'
+	LEFT JOIN lot_pack_prod prod ON t.row_id = prod.pack_id 
+	AND prod.del_flag = '0' 
+WHERE
+	a.del_flag = '0' AND A.packinglist_date>=TO_DATE('2023-11-01','YYYY-MM-DD')
+GROUP BY
+	a.packinglist_code,
+	a.packinglist_date,
+	a.prod_good_qty,
+	a.prod_defect_qty,
+	a.TRACKING_CODE,
+	a.receive_address_desc,
+	a.PROD_QTY,
+	a.RECEIVE_CORP_NAME,
+	a.RECEIVE_PSN_TEL,
+	a.RECEIVE_PSN_NAME,
+	a.TRACKING_DESC,
+	prod.lot_code 
+	) b ON t.lot_code = b.lot_code
+	JOIN pd_design p ON t.pd_design_id = p.row_id
+	LEFT JOIN mo_order m ON t.mo_id = m.row_id
+	LEFT JOIN wo_work_order w ON m.wo_id = w.row_id
+	LEFT JOIN so_sale_order s ON w.so_id = s.row_id 
+WHERE
+	t.del_flag = '0' 
+	AND p.del_flag = '0' 
+	AND m.del_flag = '0' 
+	AND s.del_flag = '0' UNION ALL
+SELECT
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ) AS PACKINGLIST_DATE,
+	NULL AS packinglist_code,
+	t2.cust_code AS cust_code,
+	t2.CUST_CODE_S AS cust_code_s,
+	t2.INNER_CODE as deviceCode,
+	t2.CUST_ORDER_CODE AS cust_order_code,
+	REPLACE ( t2.PROD_NAME, 'TR1', '' ) as cust_prod_code,
+	t1.SERIES_NAME AS series_name,
+	NULL AS pdd_tgt_name,
+	t1.SAP_SO_CODE AS sap_so_code,
+	t2.CUST_LOT_CODE AS cust_lot,
+	t1.LOT_TYPE AS produce_phase_type,
+-- 	CASE 
+-- 	WHEN t2.ORDER_TYPE ='A' THEN
+-- 		'ASSY'
+-- 	WHEN t2.ORDER_TYPE ='T' THEN
+-- 		'FT'
+-- 	WHEN t2.ORDER_TYPE ='A+T' THEN
+-- 		'ASSY_FT'
+-- END AS process_segment_type,
+t2.ORDER_TYPE as process_segment_type,
+	t1.TRACKING_CODE AS TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS AS receive_address_desc,
+	0 AS PROD_QTY,
+	t1.SHIP_TO_CODE AS RECEIVE_CORP_NAME,
+	t1.SHIP_TO_PHONE AS RECEIVE_PSN_TEL,
+	t1.SHIP_TO_NAME AS RECEIVE_PSN_NAME,
+	t1.REMARK AS TRACKING_DESC,
+	SUM(TO_NUMBER( t2.LOT_QTY )) AS goodQty,
+	t2.DC_CODE AS dc,
+	max(t1.CREATE_DATE) as createDate,
+	'BIN' || t2.bin_code as bin
+FROM
+	OUTBOUND_WITHOUT_ORDER t1
+	LEFT JOIN RECEIPT_WITHOUT_ORDER t2 ON t1.RECEIPT_ID = t2.row_id 
+	AND t2.del_flag = '0' 
+  WHERE t1.OUTBOUND_DATE>=TO_DATE('2023-11-01','YYYY-MM-DD')
+	AND t1.del_flag = '0'
+	GROUP BY
+	to_char( t1.OUTBOUND_DATE, 'YYYY-MM-DD' ),
+	t2.cust_code,
+	t2.CUST_CODE_S,
+	t2.CUST_ORDER_CODE,
+	t2.PROD_NAME,
+	t1.SERIES_NAME,
+	t1.SAP_SO_CODE,
+	t2.CUST_LOT_CODE,
+	t1.LOT_TYPE,
+	t1.TRACKING_CODE,
+	t1.SHIP_TO_ADDRESS,
+	t1.SHIP_TO_CODE,
+	t1.SHIP_TO_PHONE,
+	t1.SHIP_TO_NAME,
+	t1.REMARK,
+	t2.DC_CODE,
+	t2.ORDER_TYPE,
+	t2.INNER_CODE,
+	t2.bin_code
+	) last 
+
+ORDER BY last.createDate desc
+
+[2024-12-19 18:19:57] 
+INFO: 取数结束,开始运算
+
+[2024-12-19 18:19:58] 
+INFO: 报表图片处理......
+
+[2024-12-19 18:19:58] 
+INFO: 计算结束！
+
+[2024-12-19 18:19:58] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746955
+
+[2024-12-19 18:19:58] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746955 分页缓存id是：A_10746975
+
+[2024-12-19 18:19:58] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2Fshippinglist.rpx&columns=0&srcType=file&cachedId=A_10746955&reportParamsId=100006&saveAsName=WIP&t_i_m_e=1734603598059
+
+[2024-12-19 18:19:58] 
+INFO: 开始生成HTML......
+
+[2024-12-19 18:19:58] 
+INFO: 生成HTML结束......
+
+[2024-12-19 18:19:58] 
+DEBUG: 写报表缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746955.    time：254ms
+
+[2024-12-19 18:19:58] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746955 分页缓存id是：A_10746975.    time：319ms
+
+[2024-12-19 18:19:59] 
+INFO: Exporting report: WIP
+
+[2024-12-19 18:19:59] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:19:59] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746955 分页缓存id是：A_10746991
+
+[2024-12-19 18:19:59] 
+DEBUG: Export report begin, total pages :1
+
+[2024-12-19 18:20:00] 
+DEBUG: 写分页缓存完毕，模板缓存id：/shippinglist.rpx 报表缓存id是：A_10746955 分页缓存id是：A_10746991.    time：168ms
+
+[2024-12-19 18:20:00] 
+DEBUG: Export status:23.82%
+
+[2024-12-19 18:20:00] 
+DEBUG: Export status:47.63%
+
+[2024-12-19 18:20:00] 
+DEBUG: Export status:71.45%
+
+[2024-12-19 18:20:00] 
+DEBUG: Export status:95.26%
+
+[2024-12-19 18:20:00] 
+DEBUG: Page :1 OK.
+
+[2024-12-19 18:21:26] 
+INFO: 现在计算报表/SMT.rpx
+
+[2024-12-19 18:21:26] 
+DEBUG: CacheManager get report entry
+
+[2024-12-19 18:21:26] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:21:26] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:21:26] 
+DEBUG: 开始读取模板缓存，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:21:26] 
+DEBUG: 读取模板缓存结束，模板缓存id：/SMT.rpx
+
+[2024-12-19 18:21:26] 
+INFO: 开始运算报表，首先取数......
+
+[2024-12-19 18:21:26] 
+INFO: 下面开始打出sql
+
+[2024-12-19 18:21:26] 
+INFO: ds1=SELECT t.eqp_code,
+       g.eqp_slot,
+       g.goods_code,
+       g.goods_name,
+       g.barcode_val,
+       g.goods_qty,
+       g.setup_date
+  FROM md_equipment t, lot_eqp_goods g
+ where t.row_id = g.eqp_id
+   and t.del_flag = '0'
+   and g.del_flag = '0'
+   and g.active_flag = 'Y'
+   and g.down_date is null
+   and (g.eqp_slot like ? or ? is null)
+   and (g.goods_code like ? or ? is null)
+   and (g.barcode_val like ? or ? is null)
+   and (t.eqp_code like ? or ? is null)
+
+[2024-12-19 18:21:26] 
+INFO: arg0: %%
+
+[2024-12-19 18:21:26] 
+INFO: arg1: null
+
+[2024-12-19 18:21:26] 
+INFO: arg2: %%
+
+[2024-12-19 18:21:26] 
+INFO: arg3: null
+
+[2024-12-19 18:21:26] 
+INFO: arg4: %%
+
+[2024-12-19 18:21:26] 
+INFO: arg5: null
+
+[2024-12-19 18:21:26] 
+INFO: arg6: %%
+
+[2024-12-19 18:21:26] 
+INFO: arg7: null
+
+[2024-12-19 18:21:27] 
+INFO: 取数结束,开始运算
+
+[2024-12-19 18:21:27] 
+INFO: 报表图片处理......
+
+[2024-12-19 18:21:27] 
+INFO: 计算结束！
+
+[2024-12-19 18:21:27] 
+DEBUG: 开始往硬盘写报表缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747006
+
+[2024-12-19 18:21:27] 
+DEBUG: 开始往硬盘写分页缓存，模板缓存id：/SMT.rpx 报表缓存id是：A_10747006 分页缓存id是：A_10747277
+
+[2024-12-19 18:21:27] 
+DEBUG: pdfUrl http://192.168.2.230:8080/MES/reportServlet?action=6&file=%2FSMT.rpx&columns=0&srcType=file&cachedId=A_10747006&reportParamsId=100007&saveAsName=WIP&t_i_m_e=1734603687344
+
+[2024-12-19 18:21:27] 
+INFO: 开始生成HTML......
+
+[2024-12-19 18:21:27] 
+INFO: 生成HTML结束......
+
+[2024-12-19 18:21:27] 
+DEBUG: 写报表缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747006.    time：14ms
+
+[2024-12-19 18:21:27] 
+DEBUG: 写分页缓存完毕，模板缓存id：/SMT.rpx 报表缓存id是：A_10747006 分页缓存id是：A_10747277.    time：31ms
